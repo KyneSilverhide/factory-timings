@@ -1,0 +1,27 @@
+.timings-card {
+  max-width: 500px;
+}
+
+.timings-card mat-list-item {
+  border: 1px solid #ccc;
+}
+
+.timings-card h1.mat-line {
+  font-size: 1.3em;
+}
+
+div.actions {
+  margin-top: 10px;
+}
+
+span.section-diff {
+  margin-left: 50px;
+}
+
+span.quicker {
+  color: green;
+}
+
+span.slower {
+  color: red;
+}

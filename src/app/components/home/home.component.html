@@ -1,0 +1,17 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+  <span>{{ "PAGES.HOME.TITLE" | translate }}</span>
+
+  <button *ngIf="!configuring" mat-button (click)="configuring = true">
+    <mat-icon>arrow_back</mat-icon>
+    Retour configuration
+  </button>
+</mat-toolbar>
+
+<div *ngIf="configuring" class="container">
+  <app-configuration (saveConfigurationEvent)="updateConfiguration($event)"></app-configuration>
+</div>
+<div *ngIf="!configuring" class="container">
+  <app-timings [sectionTimings]="sectionTimings"></app-timings>
+  <mat-divider class="space"></mat-divider>
+
+</div>

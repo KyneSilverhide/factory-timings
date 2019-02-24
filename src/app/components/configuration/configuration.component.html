@@ -1,0 +1,39 @@
+<form #configform="ngForm">
+  <mat-list cdkDropList class="draggable-list" (cdkDropListDropped)="drop($event)">
+    <mat-list-item>
+      <mat-form-field class="new-section">
+        <input matInput placeholder="Ajouter une section" name="newSectionName" [(ngModel)]="newSectionName">
+      </mat-form-field>
+      <button class="item-btn" mat-mini-fab color="primary" (click)="addSection()" matTooltip="Ajouter"
+              matTooltipPosition="right">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-list-item>
+    <ng-container *ngFor="let section of sectionConfigs; index as i;">
+      <mat-list-item class="draggable-box" cdkDrag>
+        <mat-icon mat-list-icon>drag_indicator</mat-icon>
+        <mat-form-field>
+          <input matInput placeholder="Section" [name]="i + 'sectioname'"
+                 [(ngModel)]="section.sectionName" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" name="duration" placeholder="Durée (minutes)" min="1"
+                 [(ngModel)]="section.expectedDurationMin">
+        </mat-form-field>
+        <button class="item-btn" mat-mini-fab color="warn" (click)="deleteSection(section)" matTooltip="Supprimer"
+                matTooltipPosition="right">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </mat-list>
+</form>
+<div class="actions">
+  <button mat-raised-button color="primary" (click)="saveConfiguration()" matTooltip="Valider la configuration"
+          matTooltipPosition="right" [disabled]="configform.invalid">
+    <mat-icon>save</mat-icon>
+    Valider
+  </button>
+</div>
+

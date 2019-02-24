@@ -1,0 +1,47 @@
+<mat-card *ngIf="currentSectionIndex >= 0">
+  <h1><strong>{{ stopwatchDisplay.global.hours | digits }}:{{ stopwatchDisplay.global.minutes | digits }}</strong>:{{ stopwatchDisplay.global.seconds | digits }}:{{ stopwatchDisplay.global.ms | digits }}
+  /
+  {{ totalDurationMS | prettyduration }}</h1>
+</mat-card>
+
+<mat-list>
+  <mat-list-item *ngFor="let section of sectionTimings; index as i;">
+    <mat-icon mat-list-icon *ngIf="i < currentSectionIndex">done</mat-icon>
+    <mat-icon mat-list-icon *ngIf="i === currentSectionIndex">play_arrow</mat-icon>
+    <mat-icon mat-list-icon *ngIf="i > currentSectionIndex">stop</mat-icon>
+    <h1 mat-line>{{section.sectionName}} - {{ section.expectedDurationMS | prettyduration }}</h1>
+
+    <div mat-line *ngIf="i <= currentSectionIndex">
+      <span *ngIf="i == currentSectionIndex">
+            {{ stopwatchDisplay.current.hours | digits }}:{{ stopwatchDisplay.current.minutes | digits }}:{{ stopwatchDisplay.current.seconds | digits }}:{{ stopwatchDisplay.current.ms | digits }}
+        </span>
+      <span *ngIf="section.actualDurationMS">
+        <span>
+          {{ section.actualDurationMS | prettyduration }}
+        </span>
+        <span *ngIf="section.actualDurationMS > section.expectedDurationMS" class="section-diff slower">
+          + {{ (section.actualDurationMS - section.expectedDurationMS) | prettydiff }}
+        </span>
+        <span *ngIf="section.actualDurationMS <= section.expectedDurationMS" class="section-diff quicker">
+          - {{ (section.expectedDurationMS - section.actualDurationMS) | prettydiff }}
+        </span>
+      </span>
+    </div>
+  </mat-list-item>
+</mat-list>
+
+<div class="actions">
+  <button mat-raised-button type="button" (click)="startTimings()" [disabled]="running">
+    <mat-icon>play_arrow</mat-icon>
+    Démarrer
+  </button>&nbsp;
+  <button mat-raised-button type="button" (click)="nextSection()" [disabled]="!running">
+    <mat-icon>skip_next</mat-icon>
+    Section suivante
+  </button>&nbsp;
+  <button mat-raised-button type="button" (click)="stopTimings()" [disabled]="!running">
+    <mat-icon>stop</mat-icon>
+    Annuler
+  </button>
+</div>
+
