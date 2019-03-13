@@ -3,6 +3,8 @@ import {SectionConfig} from '../../models/sectiontiming';
 import {CdkDragDrop} from '@angular/cdk/typings/esm5/drag-drop';
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {DefaultConfigService} from '../../providers/default-config.service';
+import {MatDialog} from '@angular/material';
+import {ImportComponent} from '../import/import.component';
 
 @Component({
   selector: 'app-configuration',
@@ -17,7 +19,7 @@ export class ConfigurationComponent implements OnInit {
   @Output()
   private saveConfigurationEvent = new EventEmitter<SectionConfig[]>();
 
-  constructor(private configService: DefaultConfigService) {
+  constructor(private configService: DefaultConfigService, private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -44,5 +46,17 @@ export class ConfigurationComponent implements OnInit {
 
   saveConfiguration() {
     this.saveConfigurationEvent.emit(this.sectionConfigs);
+  }
+
+  importConfiguration() {
+    const dialogRef = this.dialog.open(ImportComponent, {
+      height: '400px',
+      width: '600px'
+    });
+    dialogRef.afterClosed().subscribe((configs: SectionConfig[]) => {
+      if (configs && configs.length > 0) {
+        this.sectionConfigs = configs;
+      }
+    });
   }
 }

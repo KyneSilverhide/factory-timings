@@ -31,6 +31,7 @@ import {
 import {ConfigurationComponent} from './components/configuration/configuration.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {DefaultConfigService} from './providers/default-config.service';
+import {ImportComponent} from './components/import/import.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -45,7 +46,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DigitsPipe,
     PrettyDurationPipe,
     PrettyDiffPipe,
-    ConfigurationComponent
+    ConfigurationComponent,
+    ImportComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [ElectronService, DefaultConfigService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ImportComponent]
 })
 export class AppModule {
 }
