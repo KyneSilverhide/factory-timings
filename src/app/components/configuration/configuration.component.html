@@ -12,12 +12,12 @@
     <ng-container *ngFor="let section of sectionConfigs; index as i;">
       <mat-list-item class="draggable-box" cdkDrag>
         <mat-icon mat-list-icon>drag_indicator</mat-icon>
-        <mat-form-field>
+        <mat-form-field class="section">
           <input matInput placeholder="Section" [name]="i + 'sectioname'"
                  [(ngModel)]="section.sectionName" required>
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="number" name="duration" placeholder="Durée (minutes)" min="1"
+          <input matInput type="number" [name]="i + 'duration'" placeholder="Durée (minutes)" min="1"
                  [(ngModel)]="section.expectedDurationMin">
         </mat-form-field>
         <button class="item-btn" mat-mini-fab color="warn" (click)="deleteSection(section)" matTooltip="Supprimer"
@@ -30,14 +30,15 @@
   </mat-list>
 </form>
 <div class="actions">
+  <button mat-raised-button color="accent" (click)="importConfiguration()" matTooltip="Importer depuis Confluence"
+          matTooltipPosition="right">
+    <mat-icon>list</mat-icon>
+    Import
+  </button>&nbsp;
   <button mat-raised-button color="primary" (click)="saveConfiguration()" matTooltip="Valider la configuration"
           matTooltipPosition="right" [disabled]="configform.invalid">
     <mat-icon>save</mat-icon>
     Valider
-  </button><button mat-raised-button color="accent" (click)="importConfiguration()" matTooltip="Importer depuis Confluence"
-          matTooltipPosition="right">
-    <mat-icon>list</mat-icon>
-    Import
   </button>
 </div>
 

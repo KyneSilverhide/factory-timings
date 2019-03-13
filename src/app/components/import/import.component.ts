@@ -10,6 +10,7 @@ import {MatDialogRef} from '@angular/material';
 export class ImportComponent implements OnInit {
 
   public configs: SectionConfig[];
+  private sectionRegex = /.*\(.*[min].*-.*\)/g;
 
   constructor(public dialogRef: MatDialogRef<ImportComponent>) {
     this.configs = [];
@@ -19,10 +20,20 @@ export class ImportComponent implements OnInit {
   }
 
   parseInput(importarea: HTMLTextAreaElement) {
-    this.configs.push({
-      expectedDurationMin: 10,
-      sectionName: 'Pouet'
-    });
+    const sectionTitles = importarea.value.match(this.sectionRegex);
+    for (const sectionTitle of sectionTitles) {
+      // Ex: UX/UI (15 min - Grégory)
+      const rowParts = sectionTitle.split('(');
+      const section = rowParts[0].trim();
+      const parenthesisParts = rowParts[1].split('min -');
+      const duration = parenthesisParts[0].trim();
+
+      this.configs.push({
+        expectedDurationMin: Number(duration),
+        sectionName: section
+      });
+    }
+    console.log(this.configs);
     this.dialogRef.close(this.configs);
   }
 }

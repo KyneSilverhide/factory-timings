@@ -20,7 +20,7 @@ import {DigitsPipe, PrettyDiffPipe, PrettyDurationPipe} from './pipes/digits.pip
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatDialogModule,
   MatDividerModule,
   MatIconModule,
   MatInputModule,
@@ -61,6 +61,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatCardModule,
     MatButtonModule,
     MatDividerModule,
+    MatDialogModule,
     DragDropModule,
     MatInputModule,
     MatTooltipModule,
